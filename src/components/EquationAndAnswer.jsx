@@ -1,9 +1,11 @@
 import { useState } from "react"
-import styled from "styled-components"
 import { FlexRow } from "./shared"
 import { getRandomProblem } from "../util"
 import { NumericInput } from "./shared/NumericInput"
 
+/** 
+ * @todo control for division using remainders
+*/
 export const EquationAndAnswer = () => {
   const [problem, setProblem] = useState(getRandomProblem())
   const [guess, setGuess] = useState('')

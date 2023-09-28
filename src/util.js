@@ -1,3 +1,7 @@
+/**
+ * @todo control for selected operations
+ */
+
 const randomValue = (multiplier = 1) => {
   return Math.floor(Math.random() * multiplier)
 }
