@@ -11,7 +11,7 @@ import { OperationButtons, EquationAndAnswer } from './components'
 function App() {
   return (
     <div>
-      <h1>Math Practice</h1>
+      <h1>Mathe üben</h1>
       <OperationButtons/>
       <EquationAndAnswer/>
     </div>

@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
-export const FlexRow = ({ children }) => {
+export const FlexRow = ({ children, style }) => {
   return (
-    <Row>
+    <Row style={style}>
       {children}
     </Row>
   )

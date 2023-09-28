@@ -1,5 +1,6 @@
+import { forwardRef } from 'react';
 import styled from 'styled-components'
-export const NumericInput = ({ value, onChange, result }) => {
+export const NumericInput = forwardRef(({ value, onChange, result, autoFocus }, ref) => {
   const handleChange = (e) => {
     const {value} = e.target;
 
@@ -19,6 +20,7 @@ export const NumericInput = ({ value, onChange, result }) => {
 
   return (
     <StyledInput 
+      ref={ref}
       correct={result === 'CORRECT'}
       error={result === 'INCORRECT'}
       max={100} 
@@ -28,9 +30,10 @@ export const NumericInput = ({ value, onChange, result }) => {
       value={value} 
       onChange={handleChange}
       autoComplete={"off"}
+      autoFocus={autoFocus}
     />
   )
-}
+})
 
 const StyledInput = styled('input').withConfig({
   shouldForwardProp: (prop) => !['correct', 'error'].includes(prop),
