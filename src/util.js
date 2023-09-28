@@ -23,8 +23,11 @@ export const createSubtractionProblem = () => {
 }
 
 export const createMultiplicationProblem = () => {
-  const a = randomValue(11)
-  const b = randomValue(11)
+  let a, b
+  while (!a || !b) {
+    a = randomValue(11)
+    b = randomValue(11)
+  }
   const equation = `${a} x ${b} = `
   const solution = a * b
 
