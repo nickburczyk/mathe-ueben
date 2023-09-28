@@ -1,13 +1,12 @@
 import styled from 'styled-components'
-export const NumericInput = ({ value, onChange, correct }) => {
+export const NumericInput = ({ value, onChange, result }) => {
   const handleChange = (e) => {
     const {value} = e.target;
-    
+
     // Ensure the input is numeric and within the desired range
     if (/^\d*$/.test(value) && value.length<=3) {
       const numericValue = parseInt(value, 10);
-
-      if (!numericValue) {
+      if (!numericValue || result === "CORRECT") {
         onChange('');
         return
       }
@@ -20,36 +19,44 @@ export const NumericInput = ({ value, onChange, correct }) => {
 
   return (
     <StyledInput 
-      correct={correct}
+      correct={result === 'CORRECT'}
+      error={result === 'INCORRECT'}
       max={100} 
       min={0}
-      pattern="[0-9]{1-3}"
+      pattern="/[0-9]{1-3}/"
       inputMode="numeric"
       value={value} 
       onChange={handleChange}
-      autoComplete={false}
+      autoComplete={"off"}
     />
   )
 }
 
-const StyledInput = styled('input')`
-  width: 75px;
-  height: 75px;
-  line-height: 1.5;
-  border-radius: 12px;
-  border: ${({ correct }) => {
-    if (correct === 'CORRECT') {
-      return '5px solid mediumseagreen';
-    } else if (correct === 'INCORRECT') {
-      return '5px solid tomato';
-    } else {
-      return '5px solid dodgerblue'
-    }
-  }};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 30px;
-  font-weight: bold;
-`
+const StyledInput = styled('input').withConfig({
+  shouldForwardProp: (prop) => !['correct', 'error'].includes(prop),
+}).attrs(({ correct, error }) => ({
+  '$correct': correct,
+  '$error': error,
+}))`
+  ${({correct, error}) => {
+    const borderColor = correct ? 'mediumseagreen' : error ? 'tomato' : 'dodgerblue';
+    const outlineColor = borderColor;
+    const outlineOffset = (correct || error) ? '2px' : 'default';
+
+    return `
+    width: 75px;
+    height: 75px;
+    line-height: 1.5;
+    border-radius: 12px;
+    border: 7px solid ${borderColor};
+    outline: 4px solid ${outlineColor};
+    outline-offset: ${outlineOffset};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    `
+  }}
+`;

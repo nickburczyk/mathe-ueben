@@ -11,53 +11,42 @@ export const EquationAndAnswer = () => {
   const [guess, setGuess] = useState('')
   const [result, setResult] = useState(null)
 
-  const handleGuessChange = (num) => {
-    setGuess(num)
-  }
+  const { equation, solution } = problem
 
-  const handleCheckAnswer = (e) => {
-    e.preventDefault()
-    const numberValue = parseInt(guess, 10)
-    if (numberValue === NaN) return
-    const correct = guess === problem.solution
-    setResult(correct ? 'CORRECT' : 'INCORRECT')
-  }
-
-  const handleReset = () => {
+  const nextProblem = () => {
     setProblem(getRandomProblem())
     setResult(null)
     setGuess('')
   }
 
-  const { equation } = problem
+  const handleCheckAnswer = (e) => {
+    e.preventDefault()
+
+    if (result === 'CORRECT') return nextProblem()
+
+    const numberValue = parseInt(guess, 10)
+    if (numberValue === NaN) return
+    const correct = guess === solution
+    setResult(correct ? 'CORRECT' : 'INCORRECT')
+  }
 
   return (
     <div>
       <FlexRow>
         <form onSubmit={handleCheckAnswer}>
           <FlexRow>
-            <label style={{fontSize: 30}}>{equation}</label>
+            <label style={{fontSize: 40}}>{equation}</label>
             <NumericInput
               value={guess}
-              onChange={handleGuessChange}
-              correct={result}
+              onChange={setGuess}
+              result={result}
             />
           </FlexRow>
           <FlexRow>
-            <button type='submit'>Check</button>
+            <button type='submit'>{result === 'CORRECT' ? 'Next Problem' : 'Check'}</button>
           </FlexRow>
         </form>
       </FlexRow>
-      <FlexRow>
-        <button disabled={result !== 'CORRECT'} onClick={handleReset}>New Problem</button>
-      </FlexRow>
-      <h3>
-        {result &&
-          <span>
-            {result === 'CORRECT' ? 'You got it!' : 'Try Again.'}
-          </span>
-        }
-      </h3>
     </div>
   )
 }
