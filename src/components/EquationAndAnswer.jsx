@@ -1,19 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { FlexRow } from "./shared"
 import { getRandomProblem } from "../util"
-import { NumericInput } from "./shared/NumericInput"
+import { NumericInput, StyledButton } from "./shared"
+import { useAppStore } from "../store"
 
 /** 
  * @todo control for division using remainders
 */
 export const EquationAndAnswer = () => {
-  const [problem, setProblem] = useState(getRandomProblem())
   const [guess, setGuess] = useState('')
   const [result, setResult] = useState(null)
   const [remainderGuess, setRemainderGuess] = useState('')
   const [remainderResult, setRemainderResult] = useState(null)
   const [canAdvance, setCanAdvance] = useState(false)
   const mainInputRef = useRef()
+  const [operations, problem, updateCurrentProblem ] = useAppStore(state => [state.operations, state.currentProblem, state.updateCurrentProblem])
 
   const { 
     equation, 
@@ -22,15 +23,14 @@ export const EquationAndAnswer = () => {
     type: problemType 
   } = problem
   const isDivision = problemType === 'divide'
-  console.log('equation', equation);
 
   const nextProblem = () => {
-    setProblem(getRandomProblem())
     setResult(null)
     setRemainderResult(null)
     setGuess('')
     setRemainderGuess('')
     setCanAdvance(false)
+    updateCurrentProblem(getRandomProblem(operations))
     mainInputRef.current.focus()
   }
 
@@ -97,7 +97,10 @@ export const EquationAndAnswer = () => {
             }
           </FlexRow>
           <FlexRow>
-            <button type='submit'>{canAdvance ? 'Neue Aufgabe' : 'Prüfen'}</button>
+            <StyledButton 
+              type='submit' 
+              content={canAdvance ? 'Neue Aufgabe' : 'Prüfen'}
+            />
           </FlexRow>
         </form>
       </FlexRow>

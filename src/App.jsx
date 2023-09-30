@@ -5,13 +5,12 @@ import { OperationButtons, EquationAndAnswer } from './components'
  * @todo Add state management with zustand
  * @todo Add stats tracking in local storage
  * @todo Add settings for parameters control
- * @todo Add translation
  */
 
 function App() {
   return (
     <div>
-      <h1>Mathe üben</h1>
+      <h1>Üben, üben, üben!</h1>
       <OperationButtons/>
       <EquationAndAnswer/>
     </div>

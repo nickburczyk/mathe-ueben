@@ -42,7 +42,7 @@ const StyledInput = styled('input').withConfig({
   '$error': error,
 }))`
   ${({correct, error}) => {
-    const borderColor = correct ? 'mediumseagreen' : error ? 'tomato' : 'dodgerblue';
+    const borderColor = correct ? 'greenyellow' : error ? 'orangered' : '#646cff';
     const outlineColor = borderColor;
     const outlineOffset = (correct || error) ? '2px' : 'default';
 
