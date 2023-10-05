@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react"
-import { FlexRow } from "./shared"
+import { useEffect, useRef, useState } from "react"
+import styled from "styled-components"
+import { FlexRow, NumericInput, Button } from "./shared"
 import { getRandomProblem } from "../util"
-import { NumericInput, StyledButton } from "./shared"
 import { useAppStore } from "../store"
 
 /** 
@@ -77,27 +77,29 @@ export const EquationAndAnswer = () => {
       <FlexRow>
         <form onSubmit={handleCheckAnswer}>
           <FlexRow style={{fontSize: 40}}>
-            <label>{equation}</label>
-            <NumericInput
-              ref={mainInputRef}
-              value={guess}
-              onChange={setGuess}
-              result={result}
-              autoFocus
-            />
-            {!!remainder &&
-              <>
-                <label>R: </label>
-                <NumericInput
-                  value={remainderGuess}
-                  onChange={setRemainderGuess}
-                  result={remainderResult}
-                />
-              </> 
-            }
+            <Label style={{placeItems: "center"}}>{equation}</Label>
+            <FlexRow style={{display: "flex"}}>
+              <NumericInput
+                ref={mainInputRef}
+                value={guess}
+                onChange={setGuess}
+                result={result}
+                autoFocus
+              />
+              {!!remainder &&
+                <>
+                  <label>R: </label>
+                  <NumericInput
+                    value={remainderGuess}
+                    onChange={setRemainderGuess}
+                    result={remainderResult}
+                  />
+                </> 
+              }
+            </FlexRow>
           </FlexRow>
           <FlexRow>
-            <StyledButton 
+            <Button 
               type='submit' 
               content={canAdvance ? 'Neue Aufgabe' : 'Prüfen'}
             />
@@ -108,3 +110,12 @@ export const EquationAndAnswer = () => {
   )
 }
 
+const Label = styled.label`
+  flex-shrink: 1 0 auto;
+  margin-bottom: 24px;
+
+  @media screen and (max-width: 480px) {
+    flex-basis: 100%;
+    
+  }
+`

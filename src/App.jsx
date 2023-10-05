@@ -1,6 +1,7 @@
 import './App.css'
 import { OperationButtons, EquationAndAnswer } from './components'
 
+
 /**
  * @todo Add state management with zustand
  * @todo Add stats tracking in local storage
@@ -10,7 +11,7 @@ import { OperationButtons, EquationAndAnswer } from './components'
 function App() {
   return (
     <div>
-      <h1>Üben, üben, üben!</h1>
+      <h1 className='title'>Üben, üben, üben!</h1>
       <OperationButtons/>
       <EquationAndAnswer/>
     </div>
