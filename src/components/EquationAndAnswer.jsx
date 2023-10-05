@@ -36,7 +36,6 @@ export const EquationAndAnswer = () => {
 
   const check = (val, checkAgainst) => {
     const numericVal = parseInt(val, 10)
-    if (numericVal === NaN) return false
     return numericVal === checkAgainst
   }
 
@@ -116,6 +115,7 @@ const Label = styled.label`
 
   @media screen and (max-width: 480px) {
     flex-basis: 100%;
+    margin-bottom: none;
     
   }
 `
