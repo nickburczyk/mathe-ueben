@@ -1,9 +1,8 @@
 import './App.css'
-import { OperationButtons, EquationAndAnswer } from './components'
+import { OperationButtons, Equation } from './components'
 
 
 /**
- * @todo Add state management with zustand
  * @todo Add stats tracking in local storage
  * @todo Add settings for parameters control
  */
@@ -13,7 +12,7 @@ function App() {
     <div>
       <h1 className='title'>Mathe üben!</h1>
       <OperationButtons/>
-      <EquationAndAnswer/>
+      <Equation/>
     </div>
   )
 }

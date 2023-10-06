@@ -1,2 +1,2 @@
-export * from './EquationAndAnswer'
+export * from './Equation'
 export * from './OperationsButtons'

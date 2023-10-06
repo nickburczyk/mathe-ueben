@@ -1,13 +1,10 @@
 import { useEffect, useRef, useState } from "react"
-import styled from "styled-components"
-import { FlexRow, NumericInput, Button } from "./shared"
-import { getRandomProblem } from "../util"
-import { useAppStore } from "../store"
+import { FlexRow, NumericInput, Button } from "../shared"
+import { getRandomProblem } from "../../util"
+import { useAppStore } from "../../store"
+import styles from './Equation.module.scss'
 
-/** 
- * @todo control for division using remainders
-*/
-export const EquationAndAnswer = () => {
+export const Equation = () => {
   const [guess, setGuess] = useState('')
   const [result, setResult] = useState(null)
   const [remainderGuess, setRemainderGuess] = useState('')
@@ -76,7 +73,12 @@ export const EquationAndAnswer = () => {
       <FlexRow>
         <form onSubmit={handleCheckAnswer}>
           <FlexRow style={{fontSize: 40}}>
-            <Label style={{placeItems: "center"}}>{equation}</Label>
+            <label 
+              className={styles.equation} 
+              style={{placeItems: "center"}}
+            >
+              {equation}
+            </label>
             <FlexRow style={{display: "flex"}}>
               <NumericInput
                 ref={mainInputRef}
@@ -108,14 +110,3 @@ export const EquationAndAnswer = () => {
     </div>
   )
 }
-
-const Label = styled.label`
-  flex-shrink: 1 0 auto;
-  margin-bottom: 24px;
-
-  @media screen and (max-width: 480px) {
-    flex-basis: 100%;
-    margin-bottom: none;
-    
-  }
-`

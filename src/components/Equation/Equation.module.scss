@@ -1,0 +1,10 @@
+.equation {
+  flex-shrink: 1 0 auto;
+  margin-bottom: 24px;
+
+  @media screen and (max-width: 480px) {
+    flex-basis: 100%;
+    margin-bottom: none;
+    
+  }
+}
