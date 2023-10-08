@@ -3,6 +3,7 @@ import { FlexRow, NumericInput, Button } from "../shared"
 import { getRandomProblem } from "../../util"
 import { useAppStore } from "../../store"
 import styles from './Equation.module.scss'
+import { useTimedMode, useTimer } from "../../hooks"
 
 export const Equation = () => {
   const [guess, setGuess] = useState('')
@@ -12,6 +13,8 @@ export const Equation = () => {
   const [canAdvance, setCanAdvance] = useState(false)
   const mainInputRef = useRef()
   const [operations, problem, updateCurrentProblem ] = useAppStore(state => [state.operations, state.currentProblem, state.updateCurrentProblem])
+  const { isTimerRunning, toggleTimer } = useTimer()
+  const { isTimedPracticeMode } = useTimedMode()
 
   const { 
     equation, 
@@ -104,6 +107,13 @@ export const Equation = () => {
               type='submit' 
               content={canAdvance ? 'Neue Aufgabe' : 'Prüfen'}
             />
+            {isTimedPracticeMode && 
+              <Button
+                type="button"
+                content={isTimerRunning ? 'pause' : 'LOS!'}
+                onClick={toggleTimer}
+              />
+            }
           </FlexRow>
         </form>
       </FlexRow>

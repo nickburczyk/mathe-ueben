@@ -1,17 +1,17 @@
 import './App.css'
 import { OperationButtons, Equation } from './components'
+import { OptionsBar } from './components/OptionsBar/OptionsBar'
+import { Title } from './components/Title'
 
 /**
  * @todo Add stats tracking in local storage
  * @todo Add settings for parameters control
  */
 
-const Title = () => 
-  <h1 className='title'>Mathe üben!</h1>
-
 function App() {
   return (
     <div>
+      <OptionsBar/>
       <Title/>
       <OperationButtons/>
       <Equation/>

@@ -12,8 +12,15 @@ const initOps = {
 export const useAppStore = create(
   persist(
     (set) => ({
+      // DATA
       operations: initOps,
       currentProblem: getRandomProblem(initOps),
+      isTimedPracticeMode: false,
+      isTimerRunning: false,
+      timedQuestions: null,
+      timedProgress: 0,
+
+      // METHODS
       updateOperations: (operator) => set((state) => {
         const { operations } = state
         const updatedOperations = {
@@ -34,6 +41,16 @@ export const useAppStore = create(
         return{
           operations: updatedOperations,
           currentProblem
+        }
+      }),
+      setBoolean: (key) => set((state) => {
+        const booleanKeys = Object.keys(state).filter(k => typeof state[k] === 'boolean')
+        if (!booleanKeys.includes(key)) {
+          console.warn('Cannot toggle non-boolean values')
+          return
+        }
+        return {
+          [key]: !state[key]
         }
       }),
       updateCurrentProblem: (problem) => set(() => ({
