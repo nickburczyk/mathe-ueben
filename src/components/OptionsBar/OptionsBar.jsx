@@ -9,10 +9,11 @@ export const OptionsBar = () => {
 
   return (
     <div className={styles.wrapper}>
-      <FaStopwatch 
+      <FaStopwatch
         size={24} 
         color={isActive(isTimedPracticeMode)} 
         onClick={toggleTimedPractice}
+        style={{ cursor: 'pointer' }}
       />
     </div>
   )
