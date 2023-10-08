@@ -8,6 +8,7 @@ const initOps = {
   multiply: true,
   divide: true
 }
+
 export const useAppStore = create(
   persist(
     (set) => ({

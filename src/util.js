@@ -6,7 +6,7 @@ const randomValue = (range = 1) => {
   return Math.floor(Math.random() * range)
 }
 
-const createAdditionProblem = () => {
+export const createAdditionProblem = () => {
   const type = 'add'
   const a = randomValue(100)
   const to100 = 100 - a
@@ -18,7 +18,7 @@ const createAdditionProblem = () => {
 }
 
 
-const createSubtractionProblem = () => {
+export const createSubtractionProblem = () => {
   const type = 'subtract'
   const a = randomValue(100)
   const b = randomValue(a)
@@ -31,7 +31,7 @@ const createSubtractionProblem = () => {
 }
 
 
-const createMultiplicationProblem = () => {
+export const createMultiplicationProblem = () => {
   const type = 'multiply'
   let a, b
   while (!a || !b) {
@@ -45,7 +45,7 @@ const createMultiplicationProblem = () => {
 }
 
 
-const createDivisionProblem = () => {
+export const createDivisionProblem = () => {
   const type = 'divide'
   let numerator, denominator, remainder
   while (!numerator || !denominator || numerator < denominator) {
