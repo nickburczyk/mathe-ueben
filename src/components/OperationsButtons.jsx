@@ -1,7 +1,7 @@
 import { FlexRow } from "./shared/FlexRow"
 import { Button } from "./shared"
 import { FaPlus, FaMinus, FaAsterisk, FaDivide } from 'react-icons/fa'
-import { useOperationsToggle, useTimedMode } from "../hooks"
+import { useOperationsToggle, useTimedMode, useTimer } from "../hooks"
 
 const selectedStyle = (sel) => ({ 
   backgroundColor: sel ? 'orangered' : 'inherit' 
@@ -16,6 +16,7 @@ export const OperationButtons = () => {
     toggle 
   } = useOperationsToggle()
   const { isTimedPracticeMode } = useTimedMode()
+  const { isTimerRunning } = useTimer()
 
   const instructions = isTimedPracticeMode 
     ? 'Wie viele Aufgaben kannst du in fünf Minuten richtig lösen?'
@@ -29,22 +30,26 @@ export const OperationButtons = () => {
           style={selectedStyle(add)}
           onClick={toggle('add')}
           content={<FaPlus/>}
-          />
+          disabled={isTimedPracticeMode && isTimerRunning}
+        />
         <Button
           style={selectedStyle(subtract)}
           onClick={toggle('subtract')}
           content={<FaMinus/>}
-          />
+          disabled={isTimedPracticeMode && isTimerRunning}
+        />
         <Button
           style={selectedStyle(multiply)}
           onClick={toggle('multiply')}
           content={<FaAsterisk/>}
-          />
+          disabled={isTimedPracticeMode && isTimerRunning}
+        />
         <Button
           style={selectedStyle(divide)}
           onClick={toggle('divide')}
           content={<FaDivide/>}
-          />
+          disabled={isTimedPracticeMode && isTimerRunning}
+        />
       </FlexRow>
     </>
   )

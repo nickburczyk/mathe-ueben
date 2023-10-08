@@ -43,14 +43,16 @@ export const useAppStore = create(
           currentProblem
         }
       }),
-      setBoolean: (key) => set((state) => {
+      setBoolean: (key, definedValue) => set((state) => {
         const booleanKeys = Object.keys(state).filter(k => typeof state[k] === 'boolean')
         if (!booleanKeys.includes(key)) {
           console.warn('Cannot toggle non-boolean values')
           return
         }
+        const nextValue = typeof definedValue === 'boolean' ? definedValue : !state[key]
+        
         return {
-          [key]: !state[key]
+          [key]: nextValue
         }
       }),
       updateCurrentProblem: (problem) => set(() => ({

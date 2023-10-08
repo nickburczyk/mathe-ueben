@@ -4,6 +4,10 @@ import { getRandomProblem } from "../../util"
 import { useAppStore } from "../../store"
 import styles from './Equation.module.scss'
 import { useTimedMode, useTimer } from "../../hooks"
+import { 
+  FaPlay as Play, 
+  FaStop as Stop 
+} from 'react-icons/fa'
 
 export const Equation = () => {
   const [guess, setGuess] = useState('')
@@ -110,7 +114,7 @@ export const Equation = () => {
             {isTimedPracticeMode && 
               <Button
                 type="button"
-                content={isTimerRunning ? 'pause' : 'LOS!'}
+                content={isTimerRunning ? <Stop/> : <Play/>}
                 onClick={toggleTimer}
               />
             }
