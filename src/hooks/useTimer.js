@@ -1,13 +1,45 @@
+import { useEffect, useState } from "react"
 import { useAppStore } from "../store"
+import { TICK_RATE, activeOperationsKeysList } from "../util"
 
 export const useTimer = () => {
-  const [isTimerRunning, toggleTimer] = useAppStore((state) => [
+  const [
+    isTimerRunning, 
+    startTimedSession, 
+    removeTimedSession, 
+    tick, 
+    timedSession,
+  ] = useAppStore((state) => [
     state.isTimerRunning, 
-    (definedBool) => state.setBoolean('isTimerRunning', definedBool)
+    state.startTimedSession,
+    state.removeTimedSession,
+    state.tick,
+    state.timedSession,
   ])
+
+  useEffect(()=>{
+    let interval
+    if (!timedSession) return
+    if (isTimerRunning && timedSession.timeRemaining > 0) {
+      interval = setInterval(()=>{
+        tick()
+      }, TICK_RATE)
+    }
+
+    return () => { clearInterval(interval) }
+  }, [isTimerRunning, timedSession?.timeRemaining])
+  
+  const handleToggle = () => {
+    if (isTimerRunning) {
+      removeTimedSession()
+      return
+    }
+    startTimedSession()
+  }
 
   return {
     isTimerRunning,
-    toggleTimer
+    toggleTimer: handleToggle,
+    timedSession
   }
 }

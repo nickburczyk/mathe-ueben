@@ -1,5 +1,5 @@
 import './App.css'
-import { OperationButtons, Equation } from './components'
+import { OperationButtons, Equation, TimerBar } from './components'
 import { OptionsBar } from './components/OptionsBar/OptionsBar'
 import { Title } from './components/Title'
 
@@ -15,6 +15,7 @@ function App() {
       <Title/>
       <OperationButtons/>
       <Equation/>
+      <TimerBar/>
     </div>
   )
 }

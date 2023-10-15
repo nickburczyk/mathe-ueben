@@ -1,6 +1,5 @@
-/**
- * @todo control for selected operations
- */
+export const TIMED_DURATION_IN_MS = 5 * 60 * 1000
+export const TICK_RATE = 200
 
 const randomValue = (range = 1) => {
   return Math.floor(Math.random() * range)
@@ -67,11 +66,14 @@ export const createDivisionProblem = () => {
   }
 }
 
-
-export const getRandomProblem = (ops) => {
-  const activeOperations = Object.entries(ops)
+export const activeOperationsKeysList = (operationsObject) => (
+  Object.entries(operationsObject)
     .filter(([key, value]) => value)
     .map(([key]) => key)
+)
+
+export const getRandomProblem = (ops) => {
+  const activeOperations = activeOperationsKeysList(ops)
   // UNCOMMENT THIS LINE TO SHORT CIRCUIT PROBLEMS OF ONLY A GIVEN TYPE
   // return createDivisionProblem()
 

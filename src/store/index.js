@@ -1,13 +1,27 @@
 import { create } from 'zustand'
+import { produce } from 'immer'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { getRandomProblem } from '../util'
+import { 
+  TICK_RATE, 
+  TIMED_DURATION_IN_MS, 
+  activeOperationsKeysList, 
+  getRandomProblem 
+} from '../util'
 
 const initOps = {
   add: true,
-  subtract: true,
-  multiply: true,
-  divide: true
+  subtract: false,
+  multiply: false,
+  divide: false,
 }
+
+/**
+ * new timedsession shape = {
+ *  config: string (e.g. 'add-subtract'),
+ *  numberCorrect: number,
+ *  timeRemaining: number (of seconds),
+ * }
+ */
 
 export const useAppStore = create(
   persist(
@@ -16,6 +30,7 @@ export const useAppStore = create(
       operations: initOps,
       currentProblem: getRandomProblem(initOps),
       isTimedPracticeMode: false,
+      timedSession: null, // { config: string(activeOperations), numberCorrect: number, timeRemaining: number(seconds) }
       isTimerRunning: false,
       timedQuestions: null,
       timedProgress: 0,
@@ -43,6 +58,7 @@ export const useAppStore = create(
           currentProblem
         }
       }),
+
       setBoolean: (key, definedValue) => set((state) => {
         const booleanKeys = Object.keys(state).filter(k => typeof state[k] === 'boolean')
         if (!booleanKeys.includes(key)) {
@@ -55,6 +71,40 @@ export const useAppStore = create(
           [key]: nextValue
         }
       }),
+
+      startTimedSession: () => set((state) => {
+        console.log('starting', state);
+        const config = activeOperationsKeysList(state.operations).join('_')
+        return {
+          timedSession: {
+            config,
+            timeRemaining: TIMED_DURATION_IN_MS,
+            numberCorrect: 0
+          },
+          isTimerRunning: true
+        }
+      }),
+
+      removeTimedSession: () => set(() => ({
+        timedSession: null,
+        isTimerRunning: false,
+      })),
+
+      tick: () => 
+        set(produce((state) => {
+          console.log('tick');
+
+          state.timedSession.timeRemaining -= TICK_RATE
+        })),
+
+      incrementCorrectAnswers: () => set((state) => {
+        if (!state.timedSession) {
+          console.error('No active timed session.')
+          return 
+        }
+        state.timedSession.numberCorrect ++;
+      }),
+
       updateCurrentProblem: (problem) => set(() => ({
         currentProblem: problem
       }))
@@ -62,7 +112,8 @@ export const useAppStore = create(
     {
       name: 'mathe-ueben',
       partialize: (state) => ({ 
-        operations: state.operations 
+        operations: state.operations,
+        isTimedPracticeMode: state.isTimedPracticeMode
       }),
       storage: createJSONStorage(() => sessionStorage)
     }

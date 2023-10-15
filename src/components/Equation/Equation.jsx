@@ -75,6 +75,14 @@ export const Equation = () => {
     mainInputRef.current.focus()
   }
 
+  const advanceButtonContent = () => {
+    if (!canAdvance) return 'Prüfen';
+
+    if (isTimedPracticeMode && isTimerRunning) return "Weiter"
+
+    return "Neue Aufgabe"
+  }
+
   return (
     <div>
       <FlexRow>
@@ -109,7 +117,7 @@ export const Equation = () => {
           <FlexRow>
             <Button 
               type='submit' 
-              content={canAdvance ? 'Neue Aufgabe' : 'Prüfen'}
+              content={advanceButtonContent()}
             />
             {isTimedPracticeMode && 
               <Button
