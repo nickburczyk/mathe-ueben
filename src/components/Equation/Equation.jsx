@@ -16,8 +16,15 @@ export const Equation = () => {
   const [remainderResult, setRemainderResult] = useState(null)
   const [canAdvance, setCanAdvance] = useState(false)
   const mainInputRef = useRef()
-  const [operations, problem, updateCurrentProblem ] = useAppStore(state => [state.operations, state.currentProblem, state.updateCurrentProblem])
-  const { isTimerRunning, toggleTimer } = useTimer()
+  const [
+    operations, problem, updateCurrentProblem, incrementCorrectAnswers 
+  ] = useAppStore(state => [
+    state.operations, 
+    state.currentProblem, 
+    state.updateCurrentProblem, 
+    state.incrementCorrectAnswers
+  ])
+  const { isTimerRunning, toggleTimer, timedSession } = useTimer()
   const { isTimedPracticeMode } = useTimedMode()
 
   const { 
@@ -55,7 +62,13 @@ export const Equation = () => {
     const correct_divisionNoRemainder = divisionNoRemainder && rightAnswer
     const correct_divisionWithRemainder = divisionWithRemainder && rightAnswer && rightRemainder
 
-    setCanAdvance(correct_divisionNoRemainder || correct_divisionWithRemainder || correct_nonDivision)
+    if (correct_divisionNoRemainder || correct_divisionWithRemainder || correct_nonDivision) {
+      setCanAdvance(true)
+      incrementCorrectAnswers()
+      return
+    }
+
+    setCanAdvance(false)
 
   }, [isDivision, result, remainderResult])
 
@@ -81,6 +94,13 @@ export const Equation = () => {
     if (isTimedPracticeMode && isTimerRunning) return "Weiter"
 
     return "Neue Aufgabe"
+  }
+
+  const handleStartStop = () => {
+    if (!timedSession && !isTimerRunning) {
+      nextProblem();
+    }
+    toggleTimer()
   }
 
   return (
@@ -123,7 +143,7 @@ export const Equation = () => {
               <Button
                 type="button"
                 content={isTimerRunning ? <Stop/> : <Play/>}
-                onClick={toggleTimer}
+                onClick={handleStartStop}
               />
             }
           </FlexRow>

@@ -97,13 +97,14 @@ export const useAppStore = create(
           state.timedSession.timeRemaining -= TICK_RATE
         })),
 
-      incrementCorrectAnswers: () => set((state) => {
-        if (!state.timedSession) {
-          console.error('No active timed session.')
-          return 
-        }
-        state.timedSession.numberCorrect ++;
-      }),
+      incrementCorrectAnswers: () => 
+        set(produce((state) => {
+          if (!state.timedSession) {
+            console.error('No active timed session.')
+            return 
+          }
+          state.timedSession.numberCorrect ++;
+        })),
 
       updateCurrentProblem: (problem) => set(() => ({
         currentProblem: problem
