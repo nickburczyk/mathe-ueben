@@ -112,6 +112,7 @@ export const Equation = () => {
               className={styles.equation} 
               style={{placeItems: "center"}}
             >
+              {/**@todo replace this with AnimatedCounter to animate between questions */}
               {equation}
             </label>
             <FlexRow style={{display: "flex"}}>
