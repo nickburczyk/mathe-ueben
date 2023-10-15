@@ -19,12 +19,12 @@ export const TimerBar = () => {
 
   const remaining = timedSession.timeRemaining || 0
   const elapsed = TIMED_DURATION_IN_MS - remaining
-  const value = elapsed/TIMED_DURATION_IN_MS * 100
+  const value = elapsed / TIMED_DURATION_IN_MS * 100
 
   return (
     <ThemeProvider theme={theme}>
       <LinearProgress 
-        sx={{height: 15, backgroundColor: '#9acd3244'}}
+        sx={{height: '5vh', backgroundColor: '#9acd3244'}}
         className={styles.progress} 
         variant="determinate" 
         value={value} 

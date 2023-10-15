@@ -32,8 +32,6 @@ export const useAppStore = create(
       isTimedPracticeMode: false,
       timedSession: null, // { config: string(activeOperations), numberCorrect: number, timeRemaining: number(seconds) }
       isTimerRunning: false,
-      timedQuestions: null,
-      timedProgress: 0,
 
       // METHODS
       updateOperations: (operator) => set((state) => {

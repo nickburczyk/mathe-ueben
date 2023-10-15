@@ -8,6 +8,7 @@ import {
   FaPlay as Play, 
   FaStop as Stop 
 } from 'react-icons/fa'
+import { AnimatedEquation } from "./AnimatedEquation"
 
 export const Equation = () => {
   const [guess, setGuess] = useState('')
@@ -112,10 +113,9 @@ export const Equation = () => {
               className={styles.equation} 
               style={{placeItems: "center"}}
             >
-              {/**@todo replace this with AnimatedCounter to animate between questions */}
-              {equation}
+              <AnimatedEquation/>
             </label>
-            <FlexRow style={{display: "flex"}}>
+            <FlexRow style={{marginBottom: 0}}>
               <NumericInput
                 ref={mainInputRef}
                 value={guess}
