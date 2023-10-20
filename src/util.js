@@ -1,6 +1,5 @@
-/**
- * @todo control for selected operations
- */
+export const TIMED_DURATION_IN_MS = 5 * 60 * 1000
+export const TICK_RATE = 200
 
 const randomValue = (range = 1) => {
   return Math.floor(Math.random() * range)
@@ -8,31 +7,36 @@ const randomValue = (range = 1) => {
 
 export const createAdditionProblem = () => {
   const type = 'add'
+  const symbol = '+'
   const a = randomValue(100)
   const to100 = 100 - a
   const b = randomValue(to100)
   const equation = `${a} + ${b} = `
   const solution = a + b
 
-  return { a, b, equation, solution, type }
+  return { 
+    a, b, equation, solution, type, symbol 
+  }
 }
 
 
 export const createSubtractionProblem = () => {
   const type = 'subtract'
+  const symbol = '-'
   const a = randomValue(100)
   const b = randomValue(a)
   const equation = `${a} - ${b} = `
   const solution = a - b
 
   return {
-    a, b, equation, solution, type
+    a, b, equation, solution, type, symbol
   }
 }
 
 
 export const createMultiplicationProblem = () => {
   const type = 'multiply'
+  const symbol = '*'
   let a, b
   while (!a || !b) {
     a = randomValue(11)
@@ -41,12 +45,15 @@ export const createMultiplicationProblem = () => {
   const equation = `${a} • ${b} = `
   const solution = a * b
 
-  return { a, b, equation, solution, type }
+  return { 
+    a, b, equation, solution, type, symbol 
+  }
 }
 
 
 export const createDivisionProblem = () => {
   const type = 'divide'
+  const symbol = ':'
   let numerator, denominator, remainder
   while (!numerator || !denominator || numerator < denominator) {
     denominator = randomValue(11)
@@ -61,17 +68,21 @@ export const createDivisionProblem = () => {
     a: numerator, 
     b: denominator, 
     type,
+    symbol,
     equation, 
     solution,
     remainder
   }
 }
 
-
-export const getRandomProblem = (ops) => {
-  const activeOperations = Object.entries(ops)
+export const activeOperationsKeysList = (operationsObject) => (
+  Object.entries(operationsObject)
     .filter(([key, value]) => value)
     .map(([key]) => key)
+)
+
+export const getRandomProblem = (ops) => {
+  const activeOperations = activeOperationsKeysList(ops)
   // UNCOMMENT THIS LINE TO SHORT CIRCUIT PROBLEMS OF ONLY A GIVEN TYPE
   // return createDivisionProblem()
 

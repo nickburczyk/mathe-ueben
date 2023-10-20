@@ -3,6 +3,12 @@ import { FlexRow, NumericInput, Button } from "../shared"
 import { getRandomProblem } from "../../util"
 import { useAppStore } from "../../store"
 import styles from './Equation.module.scss'
+import { useTimedMode, useTimer } from "../../hooks"
+import { 
+  FaPlay as Play, 
+  FaStop as Stop 
+} from 'react-icons/fa'
+import { AnimatedEquation } from "./AnimatedEquation"
 
 export const Equation = () => {
   const [guess, setGuess] = useState('')
@@ -11,7 +17,16 @@ export const Equation = () => {
   const [remainderResult, setRemainderResult] = useState(null)
   const [canAdvance, setCanAdvance] = useState(false)
   const mainInputRef = useRef()
-  const [operations, problem, updateCurrentProblem ] = useAppStore(state => [state.operations, state.currentProblem, state.updateCurrentProblem])
+  const [
+    operations, problem, updateCurrentProblem, incrementCorrectAnswers 
+  ] = useAppStore(state => [
+    state.operations, 
+    state.currentProblem, 
+    state.updateCurrentProblem, 
+    state.incrementCorrectAnswers
+  ])
+  const { isTimerRunning, toggleTimer, timedSession } = useTimer()
+  const { isTimedPracticeMode } = useTimedMode()
 
   const { 
     equation, 
@@ -48,7 +63,13 @@ export const Equation = () => {
     const correct_divisionNoRemainder = divisionNoRemainder && rightAnswer
     const correct_divisionWithRemainder = divisionWithRemainder && rightAnswer && rightRemainder
 
-    setCanAdvance(correct_divisionNoRemainder || correct_divisionWithRemainder || correct_nonDivision)
+    if (correct_divisionNoRemainder || correct_divisionWithRemainder || correct_nonDivision) {
+      setCanAdvance(true)
+      incrementCorrectAnswers()
+      return
+    }
+
+    setCanAdvance(false)
 
   }, [isDivision, result, remainderResult])
 
@@ -68,6 +89,21 @@ export const Equation = () => {
     mainInputRef.current.focus()
   }
 
+  const advanceButtonContent = () => {
+    if (!canAdvance) return 'Prüfen';
+
+    if (isTimedPracticeMode && isTimerRunning) return "Weiter"
+
+    return "Neue Aufgabe"
+  }
+
+  const handleStartStop = () => {
+    if (!timedSession && !isTimerRunning) {
+      nextProblem();
+    }
+    toggleTimer()
+  }
+
   return (
     <div>
       <FlexRow>
@@ -77,9 +113,9 @@ export const Equation = () => {
               className={styles.equation} 
               style={{placeItems: "center"}}
             >
-              {equation}
+              <AnimatedEquation/>
             </label>
-            <FlexRow style={{display: "flex"}}>
+            <FlexRow style={{marginBottom: 0}}>
               <NumericInput
                 ref={mainInputRef}
                 value={guess}
@@ -102,8 +138,15 @@ export const Equation = () => {
           <FlexRow>
             <Button 
               type='submit' 
-              content={canAdvance ? 'Neue Aufgabe' : 'Prüfen'}
+              content={advanceButtonContent()}
             />
+            {isTimedPracticeMode && 
+              <Button
+                type="button"
+                content={isTimerRunning ? <Stop/> : <Play/>}
+                onClick={handleStartStop}
+              />
+            }
           </FlexRow>
         </form>
       </FlexRow>

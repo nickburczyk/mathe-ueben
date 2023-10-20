@@ -1,0 +1,20 @@
+.wrapper {
+  padding: 16px;
+  position: absolute;
+  top: 0;
+  display: flex;
+  gap: 8px;
+  // width: 100%;
+  max-width: 416px;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.correctCounter {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px
+}
