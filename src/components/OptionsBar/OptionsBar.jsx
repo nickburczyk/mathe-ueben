@@ -1,8 +1,8 @@
 import { FaStopwatch } from 'react-icons/fa'
-import styles from './OptionsBar.module.scss'
-import { useTimedMode, useTimer } from '../../hooks'
 import { FaCheck as Check } from 'react-icons/fa6'
 import { AnimatedCounter } from 'react-animated-counter'
+import { useTimedMode, useTimer } from '../../hooks'
+import styles from './OptionsBar.module.scss'
 
 export const OptionsBar = () => {
   const {isTimedPracticeMode, toggleTimedPractice} = useTimedMode()
@@ -21,11 +21,13 @@ export const OptionsBar = () => {
       {timedSession && 
         <div className={styles.correctCounter}>
           <Check size={24} color='yellowgreen'/>
-          <AnimatedCounter 
-            value={timedSession.numberCorrect} 
-            fontSize="24px" 
-            includeDecimals={false}
-          />
+          {timedSession && 
+            <AnimatedCounter 
+              value={timedSession.numberCorrect} 
+              fontSize="24px" 
+              includeDecimals={false}
+            />
+          }
         </div>
       }
     </div>

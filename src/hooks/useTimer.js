@@ -15,6 +15,7 @@ export const useTimer = () => {
     state.removeTimedSession,
     state.tick,
     state.timedSession,
+    state.isTimedPracticeMode
   ])
 
   useEffect(()=>{
@@ -30,7 +31,7 @@ export const useTimer = () => {
   }, [isTimerRunning, timedSession?.timeRemaining])
   
   const handleToggle = () => {
-    if (isTimerRunning) {
+    if (timedSession) {
       removeTimedSession()
       return
     }

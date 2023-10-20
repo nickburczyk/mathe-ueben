@@ -1,5 +1,6 @@
 import './App.css'
 import { OperationButtons, Equation, TimerBar } from './components'
+import { ModalController } from './components/Modals'
 import { OptionsBar } from './components/OptionsBar/OptionsBar'
 import { Title } from './components/Title'
 
@@ -15,6 +16,7 @@ function App() {
       <Title/>
       <OperationButtons/>
       <Equation/>
+      <ModalController/>
       <TimerBar/>
     </div>
   )
