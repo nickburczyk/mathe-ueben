@@ -1,0 +1,39 @@
+{
+  "name": "Mathe Üben",
+  "short_name": "MatheUeben",
+  "description": "Matheübung, aber spaßig gemacht",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "./src/assets/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./src/assets/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "Open App",
+      "description": "Open the app",
+      "url": "/",
+      "icons": [
+        {
+          "src": "./src/assets/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "splash_pages": null
+}
