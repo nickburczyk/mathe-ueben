@@ -86,6 +86,7 @@ export const useAppStore = create(
       removeTimedSession: () => set(() => ({
         timedSession: null,
         isTimerRunning: false,
+        
       })),
 
       tick: () => 

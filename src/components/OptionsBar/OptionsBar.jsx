@@ -26,6 +26,8 @@ export const OptionsBar = () => {
               value={timedSession.numberCorrect} 
               fontSize="24px" 
               includeDecimals={false}
+              color="white"
+              incrementColor="yellowgreen"
             />
           }
         </div>

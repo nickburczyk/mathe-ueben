@@ -12,12 +12,19 @@ export const AnimatedEquation = () => {
         value={equation.a} 
         includeDecimals={false}
         fontSize="40px"
+        color="white"
+        incrementColor="yellowgreen"
+        decrementColor="orangered"
       />
       {equation.symbol}
       <AnimatedCounter 
         value={equation.b} 
         includeDecimals={false}
         fontSize="40px"
+        color="white"
+        incrementColor="yellowgreen"
+        decrementColor="orangered"
+
       />
       =
     </div>
