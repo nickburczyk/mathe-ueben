@@ -1,4 +1,4 @@
-export const TIMED_DURATION_IN_MS = 10 * 1000
+export const TIMED_DURATION_IN_MS = 5 * 60 * 1000
 export const TICK_RATE = 200
 
 const randomValue = (range = 1) => {
