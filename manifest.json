@@ -2,7 +2,7 @@
   "name": "Mathe Üben",
   "short_name": "MatheUeben",
   "description": "Matheübung, aber spaßig gemacht",
-  "start_url": "/index.html",
+  "start_url": "https://mathe-ueben.netlify.app",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
