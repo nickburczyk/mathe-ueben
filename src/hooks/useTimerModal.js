@@ -3,10 +3,10 @@ import { useAppStore } from "../store"
 
 export const useTimerModal = () => {
   const [
-    removeTimedSession,
     session, 
+    removeTimedSession,
   ] = useAppStore(state => [
-    state.isTimerRunning, 
+    state.timedSession,
     state.removeTimedSession, 
   ])
 
