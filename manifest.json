@@ -25,7 +25,7 @@
     {
       "name": "Open App",
       "description": "Open the app",
-      "url": "/",
+      "url": "https://mathe-ueben.netlify.app/",
       "icons": [
         {
           "src": "https://mathe-ueben.netlify.app/src/assets/icon-192x192.png",
