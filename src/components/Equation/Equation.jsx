@@ -65,7 +65,9 @@ export const Equation = () => {
 
     if (correct_divisionNoRemainder || correct_divisionWithRemainder || correct_nonDivision) {
       setCanAdvance(true)
-      incrementCorrectAnswers()
+      if (timedSession && isTimerRunning) {
+        incrementCorrectAnswers()
+      }
       return
     }
 

@@ -6,19 +6,24 @@ import styles from './OptionsBar.module.scss'
 
 export const OptionsBar = () => {
   const {isTimedPracticeMode, toggleTimedPractice} = useTimedMode()
-  const { timedSession } = useTimer()
+  const { timedSession, isTimerRunning } = useTimer()
 
   const isActive = (boolVal) => boolVal ? 'yellowgreen' : '#f3f3f399';
 
   return (
     <div className={styles.wrapper}>
-      <FaStopwatch
-        size={24} 
-        color={isActive(isTimedPracticeMode)} 
+      <div
         onClick={toggleTimedPractice}
-        style={{ cursor: 'pointer' }}
-      />
-      {timedSession && 
+        style={{cursor: 'pointer', display: 'flex', placeItems: 'center'}}  
+      >
+        <FaStopwatch
+          size={24} 
+          color={isActive(isTimedPracticeMode)} 
+          style={{marginRight: '8px'}}
+        />
+        {!isTimerRunning && <span>Zeitübung</span>}
+      </div>
+      {timedSession &&
         <div className={styles.correctCounter}>
           <Check size={24} color='yellowgreen'/>
           {timedSession && 
